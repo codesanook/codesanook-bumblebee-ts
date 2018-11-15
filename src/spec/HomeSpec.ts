@@ -1,6 +1,6 @@
 import * as puppeteer from 'puppeteer';
 
-describe('Jetabroad', () => {
+describe('CodeSanook HomePage', () => {
     beforeAll(done => {
         jest.setTimeout(60000);
         done();
