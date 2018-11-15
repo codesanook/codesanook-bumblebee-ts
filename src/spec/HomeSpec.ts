@@ -11,12 +11,13 @@ describe('CodeSanook HomePage', () => {
         const context = await browser.createIncognitoBrowserContext();
         const page = await context.newPage();
 
-        await page.goto('http://codesanook.com', {
+        let result = await page.goto('http://codesanook.com', {
             waitUntil: 'domcontentloaded'
         });
 
-        const bocy = await page.$('body');
-        expect(bocy).toBeDefined();
+         let body =  await page.$('body');
+
+        expect(body).toBeDefined();
 
         await context.close();
         await browser.close();
