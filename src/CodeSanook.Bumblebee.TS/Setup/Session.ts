@@ -1,26 +1,33 @@
-﻿import * as puppeteer from "puppeteer"
+﻿import { Page } from "puppeteer"
 import IBlock from "../Interfaces/IBlock";
+import WebBlock from "../Implementation/WebBlock";
 
 export default class Session {
 
-	page: puppeteer.Page
+	page: Page
 
-	constructor(page: puppeteer.Page) {
+	constructor(page: Page) {
 		this.page = page;
 	}
 
-	async navigateTo<TBlock extends IBlock>(type: { new(...args: any[]): TBlock }, url: string): Promise<TBlock> {
-        await this.page.goto(url, {
-            waitUntil: 'domcontentloaded'
+	async navigateTo<TBlock extends WebBlock>(blockType: { new(...args: any[]): TBlock }, url: string): Promise<TBlock> {
+		await this.page.goto(url, {
+			waitUntil: 'domcontentloaded'
 		});
-		return this.currentBlock<TBlock>(type);
+
+		let webBlock = await (this.currentBlock<TBlock>(blockType));
+	 	await webBlock.initialize();
+		return Promise.resolve(webBlock);
 	}
 
-	currentBlock<TBlock extends IBlock>(type: { new(...args: any[]): TBlock }, tag: Element = null): TBlock {
+	currentBlock<TBlock extends IBlock>(blockType: { new(...args: any[]): TBlock }, tag: Element = null): Promise<TBlock> {
 		if (tag != null) {
-			return new type(this, tag);
+			let block = new blockType(this, tag);
+			return Promise.resolve(block);
 		} else {
-			return new type(this);
+			console.log("create page without tag");
+			let block = new blockType(this, tag);
+			return Promise.resolve(block);
 		}
 	}
 }

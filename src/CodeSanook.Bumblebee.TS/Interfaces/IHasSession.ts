@@ -1,6 +1,5 @@
 import Session from "../Setup/Session";
 
-	export default interface IHasSession
-	{
-		 Session:Session
-	}
+export default interface IHasSession {
+	session: Session
+}
