@@ -5,32 +5,24 @@ import { ElementHandle } from "puppeteer"
 
 export default abstract class Block implements IBlock {
 	session: Session
-	private _tag: ElementHandle<Element>;
+	tag: ElementHandle;
 
 	constructor(session: Session) {
 		this.session = session;
 	}
 
-	get tag(): ElementHandle<Element> {
-		return this._tag;
-	}
-
-	set tag(value: ElementHandle<Element>) {
-		this._tag = value;
-	}
-
-	FindElement(selector): Promise<ElementHandle<Element>> {
-		if (this._tag == null) {
+	FindElement(selector): Promise<ElementHandle> {
+		if (this.tag == null) {
 			throw new Error("You can't call GetElements on a block without first initializing Tag.");
 		}
-		return this._tag.$(selector);
+		return this.tag.$(selector);
 	}
 
 	FindElements(selector: string): Promise<ElementHandle<Element>[]> {
-		if (this._tag == null) {
+		if (this.tag == null) {
 			throw new Error("You can't call GetElements on a block without first initializing Tag.");
 		}
-		return this._tag.$$(selector);
+		return this.tag.$$(selector);
 	}
 
 	protected delay(time) {
@@ -38,5 +30,4 @@ export default abstract class Block implements IBlock {
 			setTimeout(resolve, time)
 		});
 	}
-
 }

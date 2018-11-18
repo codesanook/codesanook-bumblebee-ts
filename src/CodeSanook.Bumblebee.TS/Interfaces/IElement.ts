@@ -1,5 +1,4 @@
-﻿import IDraggable from "./IDraggable";
-import IHasSession from "./IHasSession";
+﻿import IHasSession from "./IHasSession";
 
 export default interface IElement extends IHasSession {
 }

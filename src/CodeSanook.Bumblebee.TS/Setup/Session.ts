@@ -17,7 +17,7 @@ export default class Session {
 
 		let webBlock = await (this.currentBlock<TBlock>(blockType));
 	 	await webBlock.initialize();
-		return Promise.resolve(webBlock);
+		return webBlock;
 	}
 
 	currentBlock<TBlock extends IBlock>(blockType: { new(...args: any[]): TBlock }, tag: Element = null): Promise<TBlock> {

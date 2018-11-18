@@ -13,9 +13,13 @@ describe('CodeSanook HomePage', () => {
         //const context = await browser.createIncognitoBrowserContext();
         const page = await browser.newPage();
         let session = new Session(page)
-        await session.navigateTo(HomePage, 'http://codesanook.com');
 
-        //await context.close();
+        let homePage = await session.navigateTo(HomePage, 'https://www.w3schools.com/html/html_form_input_types.asp');
+        let firstName = await homePage.firstName;
+        await firstName.enterText("hello world");
+        expect(await firstName.text).toBe("hello world2");
+
+        await page.close();
         await browser.close();
     });
 });

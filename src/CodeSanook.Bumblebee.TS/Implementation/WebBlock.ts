@@ -5,7 +5,7 @@ import Block from "./Block";
 /// Base block for typical web pages allowing for specifying a common wait timeout for finding elements.
 /// </summary>
 export default abstract class WebBlock extends Block {
-	 constructor(session: Session) {
+	 constructor(session: Session){
 		super(session);
 	}
 
@@ -13,5 +13,6 @@ export default abstract class WebBlock extends Block {
 		await this.session.page.waitFor(500);
 		await this.session.page.waitForSelector("body", { timeout: timeout });
 		this.tag = await this.session.page.$("body");
+		console.log("initialize with body");
 	}
 }
