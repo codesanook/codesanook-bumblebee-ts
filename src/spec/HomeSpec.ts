@@ -3,23 +3,39 @@ import Session from '../CodeSanook.Bumblebee.TS/Setup/Session';
 import HomePage from '../CodeSanook.Bumblebee.TS.IntegrationTests/HomePage';
 
 describe('CodeSanook HomePage', () => {
-    beforeAll(done => {
+
+    let browser: puppeteer.Browser;
+    let page: puppeteer.Page;
+    let session: Session;
+
+    beforeAll((done) => {
         jest.setTimeout(60000);
         done();
     });
 
-    it('should reach booking form', async () => {
-        const browser = await puppeteer.launch({ headless: false });
-        //const context = await browser.createIncognitoBrowserContext();
-        const page = await browser.newPage();
-        let session = new Session(page)
+    beforeEach(async (done) => {
+        browser = await puppeteer.launch({ headless: false });
+        page = await browser.newPage();
+        session = new Session(page)
+        done();
+    });
 
-        let homePage = await session.navigateTo(HomePage, 'https://www.w3schools.com/html/html_form_input_types.asp');
-        let firstName = await homePage.firstName;
-        await firstName.enterText("hello world");
-        expect(await firstName.text).toBe("hello world2");
-
+    afterEach(async (done) => {
         await page.close();
         await browser.close();
+        done();
+    });
+
+    it('should set correct message', async () => {
+
+        let homePage = await session.navigateTo(
+            HomePage,
+            'https://www.w3schools.com/html/html_form_input_types.asp'
+        );
+
+        let firstName = await homePage.firstName;
+        await firstName.enterText("hello world");
+
+        expect(await firstName.text).toBe("hello world");
     });
 });

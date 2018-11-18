@@ -6,7 +6,7 @@ export default class HomePage extends WebBlock {
 
    get firstName() : Promise<ITextField> {
       return (async () => {
-            let tag = await this.session.page.$("input[name='firstname']");
+            let tag = await this.tag.$("input[name='firstname']");
             return new TextField(this, tag);
        })();
    }
