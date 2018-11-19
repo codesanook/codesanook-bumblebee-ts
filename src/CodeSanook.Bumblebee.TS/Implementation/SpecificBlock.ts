@@ -4,8 +4,8 @@ import Session from "../Setup/Session";
 import { ElementHandle } from "puppeteer"
 
 export default abstract class SpecificBlock extends Block implements ISpecificBlock {
+
 	protected constructor(session: Session, tag: ElementHandle) {
-		super(session);
-		this.tag = tag;
+		super(session, tag);
 	}
 }

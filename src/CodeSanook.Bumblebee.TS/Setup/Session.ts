@@ -1,33 +1,39 @@
-﻿import { Page } from "puppeteer"
+﻿import * as puppeteer from "puppeteer"
+import { Page, ElementHandle, Browser } from "puppeteer"
 import IBlock from "../Interfaces/IBlock";
 import WebBlock from "../Implementation/WebBlock";
 
 export default class Session {
 
-	page: Page
-
-	constructor(page: Page) {
-		this.page = page;
+	private constructor(public browser: Browser, public page: Page) {
 	}
 
+	static async New(): Promise<Session> {
+		let browser = await puppeteer.launch({ headless: false });
+		let page = await browser.newPage();
+		let session = new Session(browser, page);
+		return Promise.resolve(session);
+	}
+
+	async close(): Promise<void> {
+		await this.page.close();
+		await this.browser.close();
+	}
+
+	//Navigate to should be always return a new page
 	async navigateTo<TBlock extends WebBlock>(blockType: { new(...args: any[]): TBlock }, url: string): Promise<TBlock> {
 		await this.page.goto(url, {
 			waitUntil: 'domcontentloaded'
 		});
 
-		let webBlock = await (this.currentBlock<TBlock>(blockType));
-	 	await webBlock.initialize();
-		return webBlock;
+		await this.page.waitFor(500);
+		await this.page.waitForSelector("body", { timeout: 5000 });
+		var tag = await this.page.$("body");
+		return this.currentBlock(blockType, tag);
 	}
 
-	currentBlock<TBlock extends IBlock>(blockType: { new(...args: any[]): TBlock }, tag: Element = null): Promise<TBlock> {
-		if (tag != null) {
-			let block = new blockType(this, tag);
-			return Promise.resolve(block);
-		} else {
-			console.log("create page without tag");
-			let block = new blockType(this, tag);
-			return Promise.resolve(block);
-		}
+	currentBlock<TBlock extends IBlock>(blockType: { new(...args: any[]): TBlock }, tag: ElementHandle): Promise<TBlock> {
+		let block = new blockType(this, tag);
+		return Promise.resolve(block);
 	}
 }

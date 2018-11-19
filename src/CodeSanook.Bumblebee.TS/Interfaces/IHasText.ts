@@ -1,3 +1,3 @@
 ﻿export default interface IHasText {
-		text: Promise<string>;
+	text: Promise<string>;
 }

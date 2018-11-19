@@ -18,4 +18,13 @@ export default abstract class Element extends SpecificBlock {
 		super(parent.session, tag);
 		this.parentBlock = parent;
 	}
+
+	get text():  Promise<string> {
+		return (async () => {
+			let valueHandler = await this.tag.getProperty("value");
+			return await valueHandler.jsonValue();
+		})();
+	}
+
+
 }

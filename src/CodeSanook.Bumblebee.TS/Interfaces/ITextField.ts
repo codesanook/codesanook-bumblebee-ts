@@ -2,12 +2,6 @@
 import IHasText from "./IHasText";
 import IBlock from "./IBlock";
 
-/*
-export interface ITextField extends IElement, IHasText {
-	EnterText<TResult extends IBlock>(text: string): TResult;
-}
-*/
-
-export default interface ITextField extends IHasText {
-	enterText(text: string): Promise<void>;
+export default interface ITextField extends IElement, IHasText {
+	enterText<TResult extends IBlock>(resultType: { new(...args: any[]): TResult }, text: string): Promise<TResult>;
 }

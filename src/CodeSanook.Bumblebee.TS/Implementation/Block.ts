@@ -4,11 +4,13 @@ import Session from "../Setup/Session";
 import { ElementHandle } from "puppeteer"
 
 export default abstract class Block implements IBlock {
+
 	session: Session
 	tag: ElementHandle;
 
-	constructor(session: Session) {
+	constructor(session: Session, tag:ElementHandle) {
 		this.session = session;
+		this.tag = tag;
 	}
 
 	FindElement(selector): Promise<ElementHandle> {

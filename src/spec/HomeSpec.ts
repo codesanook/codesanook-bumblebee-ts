@@ -1,11 +1,10 @@
 import * as puppeteer from 'puppeteer';
 import Session from '../CodeSanook.Bumblebee.TS/Setup/Session';
 import HomePage from '../CodeSanook.Bumblebee.TS.IntegrationTests/HomePage';
+import ResultPage from "../CodeSanook.Bumblebee.TS.IntegrationTests/ResultPage"
 
 describe('CodeSanook HomePage', () => {
 
-    let browser: puppeteer.Browser;
-    let page: puppeteer.Page;
     let session: Session;
 
     beforeAll((done) => {
@@ -14,28 +13,30 @@ describe('CodeSanook HomePage', () => {
     });
 
     beforeEach(async (done) => {
-        browser = await puppeteer.launch({ headless: false });
-        page = await browser.newPage();
-        session = new Session(page)
+        session = await Session.New();
         done();
     });
 
     afterEach(async (done) => {
-        await page.close();
-        await browser.close();
+        await session.close();
         done();
     });
 
-    it('should set correct message', async () => {
+    it('should set correct message', async (done) => {
 
         let homePage = await session.navigateTo(
             HomePage,
             'https://www.w3schools.com/html/html_form_input_types.asp'
         );
 
-        let firstName = await homePage.firstName;
-        await firstName.enterText("hello world");
+        homePage.firstName
+            .then(page => page.enterText(HomePage, "hello world"))
 
-        expect(await firstName.text).toBe("hello world");
+            .then(page => page.submit)
+            .then(submit => submit.click(ResultPage))
+            .then( async () =>  {
+		        await  session.page.waitFor(3000);
+                done();
+            });
     });
 });
