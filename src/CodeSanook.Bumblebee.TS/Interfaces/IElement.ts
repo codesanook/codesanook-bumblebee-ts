@@ -1,6 +1,7 @@
-﻿import IHasSession from "./IHasSession";
-import IHasTag from "./IHasTag"
+﻿import IHasTag from "./IHasTag"
+import IHasParent from "./IHasParent";
+import IHasSession from "./IHasSession";
 
-export default interface IElement extends IHasSession,  IHasTag {
+export default interface IElement extends IHasTag, IHasParent, IHasSession {
 
 }

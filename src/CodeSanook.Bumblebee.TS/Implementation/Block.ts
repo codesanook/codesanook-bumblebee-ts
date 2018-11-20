@@ -5,12 +5,7 @@ import { ElementHandle } from "puppeteer"
 
 export default abstract class Block implements IBlock {
 
-	session: Session
-	tag: ElementHandle;
-
-	constructor(session: Session, tag:ElementHandle) {
-		this.session = session;
-		this.tag = tag;
+	constructor(public session: Session, public tag: ElementHandle, public parent: IBlock = null) {
 	}
 
 	FindElement(selector): Promise<ElementHandle> {

@@ -12,6 +12,6 @@ export default class TextField extends Element implements ITextField {
 		await this.tag.click({ clickCount: 3 });
 		await this.tag.press('Backspace');
 		await this.tag.type(text);
-		return this.session.currentBlock(resultType, this.parentBlock.tag);
+		return this.session.currentBlock(resultType);
 	}
 }

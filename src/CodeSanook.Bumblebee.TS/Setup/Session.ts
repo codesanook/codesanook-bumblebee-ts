@@ -4,7 +4,6 @@ import IBlock from "../Interfaces/IBlock";
 import WebBlock from "../Implementation/WebBlock";
 
 export default class Session {
-
 	private constructor(public browser: Browser, public page: Page) {
 	}
 
@@ -25,15 +24,20 @@ export default class Session {
 		await this.page.goto(url, {
 			waitUntil: 'domcontentloaded'
 		});
-
-		await this.page.waitFor(500);
-		await this.page.waitForSelector("body", { timeout: 5000 });
-		var tag = await this.page.$("body");
-		return this.currentBlock(blockType, tag);
+		//await this.page.waitFor(500);
+		return this.currentBlock(blockType);
 	}
 
-	currentBlock<TBlock extends IBlock>(blockType: { new(...args: any[]): TBlock }, tag: ElementHandle): Promise<TBlock> {
-		let block = new blockType(this, tag);
-		return Promise.resolve(block);
+	async currentBlock<TBlock extends IBlock, TParent extends IBlock>(blockType: { new(...args: any[]): TBlock }, tag: ElementHandle = null, parent: TParent = null): Promise<TBlock> {
+		if (tag == null) {
+			await this.page.waitForSelector("body", { timeout: 5000 });
+			tag = await this.page.$("body");
+		}
+
+		if (parent == null) {
+			return Promise.resolve(new blockType(this, tag));
+		} else {
+			return Promise.resolve(new blockType(this, tag, parent));
+		}
 	}
 }

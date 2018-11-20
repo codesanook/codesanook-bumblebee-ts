@@ -1,10 +1,16 @@
 ﻿import IBlock from "../Interfaces/IBlock";
 import { ElementHandle } from "puppeteer"
-import SpecificBlock from "./SpecificBlock";
-export default abstract class Element extends SpecificBlock {
+import IElement from "../Interfaces/IElement";
+import Session from "../Setup/Session";
 
-	//private get
-	parentBlock: IBlock;
+export default abstract class Element implements IElement {
+
+	get session(): Session {
+		return this.parent.session;
+	}
+
+	constructor(public parent: IBlock, public tag: ElementHandle) {
+	}
 
 	get selected(): Promise<boolean> {
 		return (async () => {
@@ -14,12 +20,7 @@ export default abstract class Element extends SpecificBlock {
 		})();
 	}
 
-	constructor(parent: IBlock, tag: ElementHandle) {
-		super(parent.session, tag);
-		this.parentBlock = parent;
-	}
-
-	get text():  Promise<string> {
+	get text(): Promise<string> {
 		return (async () => {
 			let valueHandler = await this.tag.getProperty("value");
 			return await valueHandler.jsonValue();

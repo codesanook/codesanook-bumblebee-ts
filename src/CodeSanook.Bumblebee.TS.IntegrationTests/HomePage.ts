@@ -13,7 +13,7 @@ export default class HomePage extends WebBlock {
        })();
    }
 
-   get submit() : Promise<IClickable> {
+   get submitButton() : Promise<IClickable> {
       return (async () => {
             let tag = await this.FindElement("input[type='submit']");
             return new Clickable(this, tag);
