@@ -26,6 +26,4 @@ export default abstract class Element implements IElement {
 			return await valueHandler.jsonValue();
 		})();
 	}
-
-
 }
