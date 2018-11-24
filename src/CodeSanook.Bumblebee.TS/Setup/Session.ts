@@ -4,6 +4,7 @@ import IBlock from "../Interfaces/IBlock";
 import WebBlock from "../Implementation/WebBlock";
 
 export default class Session {
+
 	private constructor(public browser: Browser, public page: Page) {
 	}
 
