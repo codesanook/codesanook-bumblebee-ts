@@ -4,6 +4,6 @@ import IHasTag from "./IHasTag";
 import { ElementHandle } from "puppeteer";
 
 export default interface IBlock extends IHasParent, IHasSession, IHasTag {
-    FindElement(selector): Promise<ElementHandle>;
-    FindElements(selector: string): Promise<ElementHandle[]>; 
+    findElement(selector): Promise<ElementHandle>;
+    findElements(selector: string): Promise<ElementHandle[]>; 
 }

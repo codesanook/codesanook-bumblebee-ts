@@ -5,21 +5,38 @@ import { ElementHandle } from "puppeteer"
 
 export default abstract class Block implements IBlock {
 
-	constructor(public session: Session, public tag: ElementHandle, public parent: IBlock = null) {
+	constructor(public session: Session, public selector: string | ElementHandle, public parent: IBlock = null) {
 	}
 
-	FindElement(selector): Promise<ElementHandle> {
-		if (this.tag == null) {
-			throw new Error("You can't call GetElements on a block without first initializing Tag.");
-		}
-		return this.tag.$(selector);
+	_tag: ElementHandle;
+	get tag(): Promise<ElementHandle> {
+		return (async () => {
+			if (this._tag != null) return Promise.resolve(this._tag);
+
+			if (typeof (this.selector) === 'string' || this.selector instanceof String) {
+				this._tag = await this.getTagFromCssSelector(<string>this.selector);
+			} else {
+				this._tag = <ElementHandle>this.selector;
+			}
+
+			return Promise.resolve(this._tag);
+		})();
 	}
 
-	FindElements(selector: string): Promise<ElementHandle<Element>[]> {
-		if (this.tag == null) {
-			throw new Error("You can't call GetElements on a block without first initializing Tag.");
+	private async getTagFromCssSelector(selector: string): Promise<ElementHandle> {
+		if (this.parent != null) {
+			return await this.parent.findElement(selector);
+		} else {
+			return await this.session.page.$(selector);
 		}
-		return this.tag.$$(selector);
+	}
+
+	async findElement(selector): Promise<ElementHandle> {
+		return await (await this.tag).$(selector);
+	}
+
+	async findElements(selector: string): Promise<ElementHandle<Element>[]> {
+		return await (await this.tag).$$(selector);
 	}
 
 	protected delay(time) {
