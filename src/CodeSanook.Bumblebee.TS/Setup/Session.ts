@@ -1,9 +1,6 @@
 ﻿import * as puppeteer from "puppeteer"
 import { Page, Browser } from "puppeteer"
 import IBlock from "../Interfaces/IBlock";
-//const devices = require('puppeteer/DeviceDescriptors');
-//const GalaxyS5 = devices['Galaxy S5'];
-
 
 export default class Session {
 
@@ -37,10 +34,7 @@ export default class Session {
 
 	//Navigate to should be always return a new page
 	async navigateTo<TBlock extends IBlock>(blockType: { new(...args: any[]): TBlock }, url: string): Promise<TBlock> {
-		await this.page.goto(url, {
-			waitUntil: 'domcontentloaded'
-		});
-		//await this.page.waitFor(500);
+		await this.page.goto(url, { waitUntil: 'domcontentloaded' });
 		return this.currentBlock(blockType);
 	}
 
