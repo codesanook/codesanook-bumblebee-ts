@@ -1,5 +1,5 @@
 ﻿import Option from "./Option"
-import IBlock from "../Interfaces/IBlock";
+import IBlock from "../interfaces/IBlock";
 import { ElementHandle } from "puppeteer";
 
 export default class RadioButton extends Option {

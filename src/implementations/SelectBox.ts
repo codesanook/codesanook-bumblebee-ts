@@ -1,5 +1,5 @@
-﻿import IOption from "../Interfaces/IOption";
-import ISelectBox from "../Interfaces/ISelectBox";
+﻿import IOption from "../interfaces/IOption";
+import ISelectBox from "../interfaces/ISelectBox";
 import Block from "./Block";
 import Option from "./Option";
 

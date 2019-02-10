@@ -1,10 +1,10 @@
-﻿import ITextField from "../Interfaces/ITextField";
-import IBlock from "../Interfaces/IBlock";
-import Element from "../Implementation/Element"
+﻿import ITextField from "../interfaces/ITextField";
+import IBlock from "../interfaces/IBlock";
+import Element from "../implementations/Element"
 
 export default class TextField extends Element implements ITextField {
 
-	public async enterText<TResult extends IBlock>(resultType: new(...args: any[]) => TResult, text: string): Promise<TResult> {
+	public async enterText<TResult extends IBlock>(resultType: new (...args: any[]) => TResult, text: string): Promise<TResult> {
 		// clear text
 		const tag = await this.tag
 		await tag.click();
@@ -13,7 +13,7 @@ export default class TextField extends Element implements ITextField {
 		// click three times to select all
 		await tag.click({ clickCount: 3 });
 		await tag.press('Backspace');
-		for(let index =0; index< text.length ; index ++){
+		for (let index = 0; index < text.length; index++) {
 			const character = text.charAt(index);
 			await tag.type(character);
 			await this.session.page.waitFor(25);

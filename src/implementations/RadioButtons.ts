@@ -1,8 +1,8 @@
-﻿import IRadioButtons from "../Interfaces/IRadioButtons";
-import IOption from "../Interfaces/IOption";
+﻿import IRadioButtons from "../interfaces/IRadioButtons";
+import IOption from "../interfaces/IOption";
 import RadioButton from "./RadioButton";
 import { ElementHandle } from "puppeteer";
-import IBlock from "../Interfaces/IBlock";
+import IBlock from "../interfaces/IBlock";
 
 export default class RadioButtons implements IRadioButtons {
 
@@ -12,8 +12,8 @@ export default class RadioButtons implements IRadioButtons {
 
 	get tags(): Promise<Array<ElementHandle<Element>>> {
 		return (async () => {
-			if (this.tagElement != null){
-			 return Promise.resolve(this.tagElement);
+			if (this.tagElement != null) {
+				return Promise.resolve(this.tagElement);
 			}
 
 			if (typeof (this.selector) === 'string' || this.selector instanceof String) {

@@ -1,5 +1,5 @@
-import IOption from "../Interfaces/IOption";
-import IBlock from "../Interfaces/IBlock";
+import IOption from "../interfaces/IOption";
+import IBlock from "../interfaces/IBlock";
 import Element from "./Element"
 
 export default class Option extends Element implements IOption {
