@@ -39,3 +39,9 @@ Utility class
 [ ] Add more interface and implementation of HTML Form inputs.
 [ ] Reduce noise of async/await in the code.
 [ ] Create a built-in website for demonstration integration test.
+
+
+## To make a new NPM package
+- npm login
+- update version number in package.json
+- npm publish

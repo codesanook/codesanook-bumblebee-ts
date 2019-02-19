@@ -1,4 +1,4 @@
-import Session from "../Setup/Session";
+import Session from "../setup/Session";
 
 export default interface IHasSession {
 	session: Session

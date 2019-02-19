@@ -63,3 +63,4 @@ src/page-objects
 
 #ignore all files in contents folder
 src/contents/*
+dist
