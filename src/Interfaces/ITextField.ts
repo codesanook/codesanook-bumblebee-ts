@@ -2,5 +2,5 @@
 import IHasText from "./IHasText";
 
 export default interface ITextField extends IElement, IHasText {
-	enterText(text: string): Promise<void>;
+    enterText(text: string): Promise<void>;
 }

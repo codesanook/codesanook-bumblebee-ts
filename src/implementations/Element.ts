@@ -1,6 +1,6 @@
-﻿import IBlock from "../Interfaces/IBlock";
+﻿import IBlock from "../interfaces/IBlock";
 import { ElementHandle } from "puppeteer"
-import IElement from "../Interfaces/IElement";
+import IElement from "../interfaces/IElement";
 import Session from "../Setup/Session";
 
 export default abstract class Element implements IElement {

@@ -1,5 +1,5 @@
-﻿import Element from "../implementations/Element"
-import ICheckbox from "../interfaces/ICheckbox";
+﻿import Element from '../implementations/Element'
+import ICheckbox from '../interfaces/ICheckbox';
 
 export default class Checkbox extends Element implements ICheckbox {
     public async check(): Promise<void> {

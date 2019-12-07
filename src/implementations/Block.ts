@@ -1,4 +1,4 @@
-﻿import IBlock from "../Interfaces/IBlock";
+﻿import IBlock from "../interfaces/IBlock";
 import Session from "../Setup/Session";
 import { ElementHandle } from "puppeteer"
 

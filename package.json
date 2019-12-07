@@ -1,5 +1,5 @@
 {
-    "version": "0.0.8",
+    "version": "0.0.10",
     "name": "codesanook-bumblebee-ts",
     "description": "A browser test page object inspired by .NET Bumblebee",
     "main": "dist/index.js",
@@ -21,27 +21,27 @@
         "@types/moment": "^2.13.0",
         "@types/moment-timezone": "^0.5.9",
         "@types/puppeteer": "^1.6.4",
-        "@types/typescript": "^2.0.0",
-        "jest": "^23.6.0",
-        "jest-puppeteer": "^3.4.0",
+        "jest": "^24.5.0",
+        "jest-puppeteer": "^4.1.0",
         "lodash": "^4.17.11",
         "moment": "^2.22.2",
         "moment-timezone": "^0.5.23",
         "path": "^0.12.7",
-        "puppeteer": "^1.8.0",
-        "ts-jest": "^23.10.3",
-        "typescript": "^3.1.1"
+        "puppeteer": "^1.13.0",
+        "ts-jest": "^24.0.0",
+        "typescript": "^3.7.3"
     },
     "jest": {
-        "preset": "jest-puppeteer",
         "transform": {
-            "^.+\\.ts?$": "ts-jest"
+            "^.+\\.(js|ts)x?$": "ts-jest"
         },
         "testRegex": "(/specs/.*)\\.ts$",
-        "moduleFileExtensions": [
-            "ts",
-            "js",
-            "json"
-        ]
+        "globals": {
+            "ts-jest": {
+                "tsConfig": {
+                    "allowJs": true
+                }
+            }
+        }
     }
 }
