@@ -1,5 +1,5 @@
 {
-    "version": "0.0.10",
+    "version": "0.0.11",
     "name": "codesanook-bumblebee-ts",
     "description": "A browser test page object inspired by .NET Bumblebee",
     "main": "dist/index.js",
@@ -12,26 +12,29 @@
         "type": "git",
         "url": "https://github.com/codesanook/codesanook-bumblebee-ts"
     },
-    "author": "CodeSanook Team",
+    "author": "Codesanook Team",
     "license": "MIT",
     "dependencies": {},
     "devDependencies": {
-        "@types/jest": "^23.3.2",
+        "@types/jest": "^23.3.14",
+        "@types/jest-environment-puppeteer": "^4.3.1",
         "@types/lodash": "^4.14.118",
         "@types/moment": "^2.13.0",
         "@types/moment-timezone": "^0.5.9",
-        "@types/puppeteer": "^1.6.4",
-        "jest": "^24.5.0",
-        "jest-puppeteer": "^4.1.0",
+        "@types/node": "^12.12.14",
+        "@types/puppeteer": "^1.20.3",
+        "jest": "^24.9.0",
+        "jest-puppeteer": "^4.3.0",
         "lodash": "^4.17.11",
         "moment": "^2.22.2",
         "moment-timezone": "^0.5.23",
         "path": "^0.12.7",
-        "puppeteer": "^1.13.0",
-        "ts-jest": "^24.0.0",
+        "puppeteer": "^1.20.0",
+        "ts-jest": "^24.2.0",
         "typescript": "^3.7.3"
     },
     "jest": {
+        "preset": "jest-puppeteer",
         "transform": {
             "^.+\\.(js|ts)x?$": "ts-jest"
         },
